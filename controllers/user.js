@@ -78,17 +78,21 @@ router.delete("/:id", async (request, response) => {
 });
 
 router.put("/:id", async (request, response) => {
-    const { Id_Credencial, Nombre, id, Email } = request.body;
+    const { Id_Credencial, Nombre, id, Email, Password } = request.body;
 
     const lowercaseNombre = Nombre.toLowerCase();
     const lowerCaseCorreo = Email.toLowerCase();
     const lowercaseIdCredencial = Id_Credencial.toLowerCase();
+
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(Password, saltRounds);
 
     const user = {
         Id_Credencial: lowercaseIdCredencial,
         Nombre: lowercaseNombre,
         id: id,
         Email: lowerCaseCorreo,
+        Hash: passwordHash
     };
 
     const updatedUser = await userModel.findByIdAndUpdate(
