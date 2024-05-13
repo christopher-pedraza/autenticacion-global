@@ -12,16 +12,22 @@ app.use(express.json());
 // Middleware to set CORS headers
 const cors = require("cors");
 
-const allowedOrigins = ["http://localhost:3001"];
+const allowedOrigins = [
+    "http://autenticacion-global-dreamlab.azurewebsites.net",
+    "https://autenticacion-global-dreamlab.azurewebsites.net",
+    "http://localhost:3001",
+    "http://localhost:5173",
+];
 
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
+    // origin: function (origin, callback) {
+    //     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    //         callback(null, true);
+    //     } else {
+    //         callback(new Error("Not allowed by CORS"));
+    //     }
+    // },
+    origin: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
 };

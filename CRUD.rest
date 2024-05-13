@@ -18,6 +18,15 @@ Content-Type: application/json
   "Password": "123"
 }
 
+### Inicia sesion con un usuario
+POST http://autenticacion-global-dreamlab.azurewebsites.net/api/user/login
+Content-Type: application/json
+
+{
+  "Id_Credencial": "credencial",
+  "Password": "123"
+}
+
 ### Obtiene todos los usuarios
 GET http://localhost:3001/api/user
 
