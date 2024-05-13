@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ### Obtiene todos los usuarios
-GET http://localhost:3001/api/user
+GET http://autenticacion-global-dreamlab.azurewebsites.net/api/user
 
 ### Obtiene un usuario por id
 GET http://localhost:3001/api/user/664256e02cbea434fb020316
@@ -38,10 +38,11 @@ PUT http://localhost:3001/api/user/664256e02cbea434fb020316
 Content-Type: application/json
 
 {
-  "Nombre": "Nombre modificado",
+  "Nombre": "agua",
   "Email": "email modificado",
   "Id_Credencial": "credencial",
-  "id": "664256e02cbea434fb020316"
+  "id": "664256e02cbea434fb020316",
+  "Password": "eduardo"
 }
 
 ### Eliminar un usuario por id
