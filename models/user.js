@@ -14,14 +14,10 @@ mongoose
     });
 
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true, // esto asegura la unicidad de username
-    },
-    name: String,
-    passwordHash: String,
-    email: String,
+    Nombre: String,
+    Email: String,
+    Id_Credencial: String,
+    Hash: String,
 });
 
 userSchema.set("toJSON", {
@@ -30,7 +26,7 @@ userSchema.set("toJSON", {
         delete returnedObject._id;
         delete returnedObject.__v;
         // el passwordHash no debe mostrarse
-        delete returnedObject.passwordHash;
+        delete returnedObject.Hash;
     },
 });
 
