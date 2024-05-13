@@ -8,7 +8,7 @@ router.post("/login", async (request, response) => {
 
     const lowercaseUsername = username.toLowerCase();
 
-    const user = await userModel.findOne({ username: lowercaseUsername });
+    const user = await userModel.findOne({ Id_Credencial: lowercaseUsername });
 
     const passwordCorrect =
         user === null
@@ -22,7 +22,9 @@ router.post("/login", async (request, response) => {
     }
 
     const userForToken = {
-        username: user.username,
+        Nombre: user.Nombre,
+        Email: user.Email,
+        Id_Credencial: user.Id_Credencial,
         id: user._id,
     };
 
@@ -37,19 +39,20 @@ router.post("/login", async (request, response) => {
 });
 
 router.post("/signup", async (request, response) => {
-    const { username, name, password, rol } = request.body;
+    const { id_credencial, nombre, password, correo } = request.body;
 
-    const lowercaseUsername = username.toLowerCase();
-    const lowerCaseRol = rol.toLowerCase();
+    const lowercaseNombre = nombre.toLowerCase();
+    const lowerCaseCorreo = correo.toLowerCase();
+    const lowercaseIdCredencial = id_credencial.toLowerCase();
 
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     const user = new userModel({
-        username: lowercaseUsername,
-        name,
-        passwordHash,
-        rol: lowerCaseRol,
+        Id_Credencial: lowercaseIdCredencial,
+        Nombre: lowercaseNombre,
+        Hash: passwordHash,
+        Email: lowerCaseCorreo,
     });
 
     const savedUser = await user.save();
@@ -62,42 +65,42 @@ router.get("/", async (request, response) => {
     response.json(users);
 });
 
-router.get("/:id", async (request, response) => {
-    const user = await userModel.findById(request.params.id);
-    if (user) {
-        response.json(user);
-    } else {
-        response.status(404).end();
-    }
-});
+// router.get("/:id", async (request, response) => {
+//     const user = await userModel.findById(request.params.id);
+//     if (user) {
+//         response.json(user);
+//     } else {
+//         response.status(404).end();
+//     }
+// });
 
-router.delete("/:id", async (request, response) => {
-    await userModel.findByIdAndDelete(request.params.id);
-    response.status(204).end();
-});
+// router.delete("/:id", async (request, response) => {
+//     await userModel.findByIdAndDelete(request.params.id);
+//     response.status(204).end();
+// });
 
-router.put("/:id", async (request, response) => {
-    const { username, name, password, rol } = request.body;
+// router.put("/:id", async (request, response) => {
+//     const { username, name, password, rol } = request.body;
 
-    const lowercaseUsername = username.toLowerCase();
-    const lowerCaseRol = rol.toLowerCase();
+//     const lowercaseUsername = username.toLowerCase();
+//     const lowerCaseRol = rol.toLowerCase();
 
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
+//     const saltRounds = 10;
+//     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    const user = {
-        username: lowercaseUsername,
-        name,
-        passwordHash,
-        rol: lowerCaseRol,
-    };
+//     const user = {
+//         username: lowercaseUsername,
+//         name,
+//         passwordHash,
+//         rol: lowerCaseRol,
+//     };
 
-    const updatedUser = await userModel.findByIdAndUpdate(
-        request.params.id,
-        user,
-        { new: true }
-    );
-    response.json(updatedUser);
-});
+//     const updatedUser = await userModel.findByIdAndUpdate(
+//         request.params.id,
+//         user,
+//         { new: true }
+//     );
+//     response.json(updatedUser);
+// });
 
 module.exports = router;
