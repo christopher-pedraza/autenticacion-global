@@ -14,8 +14,8 @@ POST http://localhost:3001/api/user/login
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "password": "admin"
+  "Id_Credencial": "credencial",
+  "Password": "123"
 }
 
 ### Obtiene todos los usuarios
