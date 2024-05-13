@@ -39,14 +39,17 @@ router.post("/login", async (request, response) => {
 router.post("/signup", async (request, response) => {
     const { Id_Credencial, Nombre, Password, Email } = request.body;
 
-    const lowercaseNombre = Nombre.toLowerCase();
     const lowerCaseCorreo = Email.toLowerCase();
     const lowercaseIdCredencial = Id_Credencial.toLowerCase();
 
     // Check if user already exists
-    const existingUser = await userModel.findOne({ Id_Credencial: lowercaseIdCredencial });
+    const existingUser = await userModel.findOne({
+        Id_Credencial: lowercaseIdCredencial,
+    });
     if (existingUser) {
-        return response.status(400).json({ error: 'Ya existe un usuario con ese ID' });
+        return response
+            .status(400)
+            .json({ error: "Ya existe un usuario con ese ID" });
     }
 
     const saltRounds = 10;
@@ -54,7 +57,7 @@ router.post("/signup", async (request, response) => {
 
     const user = new userModel({
         Id_Credencial: lowercaseIdCredencial,
-        Nombre: lowercaseNombre,
+        Nombre: Nombre,
         Hash: passwordHash,
         Email: lowerCaseCorreo,
     });
@@ -86,7 +89,6 @@ router.delete("/:id", async (request, response) => {
 router.put("/:id", async (request, response) => {
     const { Id_Credencial, Nombre, id, Email, Password } = request.body;
 
-    const lowercaseNombre = Nombre.toLowerCase();
     const lowerCaseCorreo = Email.toLowerCase();
     const lowercaseIdCredencial = Id_Credencial.toLowerCase();
 
@@ -95,10 +97,10 @@ router.put("/:id", async (request, response) => {
 
     const user = {
         Id_Credencial: lowercaseIdCredencial,
-        Nombre: lowercaseNombre,
+        Nombre: Nombre,
         id: id,
         Email: lowerCaseCorreo,
-        Hash: passwordHash
+        Hash: passwordHash,
     };
 
     const updatedUser = await userModel.findByIdAndUpdate(
