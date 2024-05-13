@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
   "Id_Credencial": "credencial",
-  "Password": "123"
+  "Password": "12345"
 }
 
 ### Inicia sesion con un usuario
@@ -24,7 +24,7 @@ Content-Type: application/json
 
 {
   "Id_Credencial": "credencial",
-  "Password": "123"
+  "Password": "12345"
 }
 
 ### Obtiene todos los usuarios
