@@ -1,5 +1,5 @@
 ### Registrar un usuario
-POST http://localhost:3000/api/user/signup
+POST http://localhost:3001/api/user/signup
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### Inicia sesion con un usuario
-POST http://localhost:3000/api/user/login
+POST http://localhost:3001/api/user/login
 Content-Type: application/json
 
 {
@@ -28,13 +28,13 @@ Content-Type: application/json
 }
 
 ### Obtiene todos los usuarios
-GET http://localhost:3000/api/user
+GET http://localhost:3001/api/user
 
 ### Obtiene un usuario por id
-GET http://localhost:3000/api/user/664256e02cbea434fb020316
+GET http://localhost:3001/api/user/664256e02cbea434fb020316
 
 ### Editar un usuario por id
-PUT http://localhost:3000/api/user/664256e02cbea434fb020316
+PUT http://localhost:3001/api/user/664256e02cbea434fb020316
 Content-Type: application/json
 
 {
@@ -45,4 +45,4 @@ Content-Type: application/json
 }
 
 ### Eliminar un usuario por id
-DELETE http://localhost:3000/api/user/6642583bdb097da203e7ba81
+DELETE http://localhost:3001/api/user/6642583bdb097da203e7ba81
