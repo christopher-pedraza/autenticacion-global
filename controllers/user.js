@@ -4,16 +4,18 @@ const router = require("express").Router();
 const userModel = require("../models/user");
 
 router.post("/login", async (request, response) => {
-    const { username, password } = request.body;
+    const { Id_Credencial, Password } = request.body;
 
-    const lowercaseUsername = username.toLowerCase();
+    const lowerCaseIdCredencial = Id_Credencial.toLowerCase();
 
-    const user = await userModel.findOne({ Id_Credencial: lowercaseUsername });
+    const user = await userModel.findOne({
+        Id_Credencial: lowerCaseIdCredencial,
+    });
 
     const passwordCorrect =
         user === null
             ? false
-            : await bcrypt.compare(password, user.passwordHash);
+            : await bcrypt.compare(Password, user.passwordHash);
 
     if (!(user && passwordCorrect)) {
         return response.status(401).json({
@@ -22,9 +24,6 @@ router.post("/login", async (request, response) => {
     }
 
     const userForToken = {
-        Nombre: user.Nombre,
-        Email: user.Email,
-        Id_Credencial: user.Id_Credencial,
         id: user._id,
     };
 
@@ -32,21 +31,22 @@ router.post("/login", async (request, response) => {
 
     response.status(200).send({
         token,
-        username: user.username,
-        name: user.name,
-        rol: user.rol,
+        Nombre: user.Nombre,
+        Email: user.Email,
+        Id_Credencial: user.Id_Credencial,
+        id: user._id,
     });
 });
 
 router.post("/signup", async (request, response) => {
-    const { id_credencial, nombre, password, correo } = request.body;
+    const { Id_Credencial, Nombre, Password, Email } = request.body;
 
-    const lowercaseNombre = nombre.toLowerCase();
-    const lowerCaseCorreo = correo.toLowerCase();
-    const lowercaseIdCredencial = id_credencial.toLowerCase();
+    const lowercaseNombre = Nombre.toLowerCase();
+    const lowerCaseCorreo = Email.toLowerCase();
+    const lowercaseIdCredencial = Id_Credencial.toLowerCase();
 
     const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
+    const passwordHash = await bcrypt.hash(Password, saltRounds);
 
     const user = new userModel({
         Id_Credencial: lowercaseIdCredencial,

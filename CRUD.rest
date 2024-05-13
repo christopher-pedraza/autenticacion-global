@@ -3,10 +3,10 @@ POST http://localhost:3001/api/user/signup
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "name": "Admin",
-  "password": "admin",
-  "rol": "Admin"
+  "Nombre": "nombre",
+  "Email": "email",
+  "Id_Credencial": "credencial",
+  "Password": "123"
 }
 
 ### Inicia sesion con un usuario
