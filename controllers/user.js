@@ -43,6 +43,12 @@ router.post("/signup", async (request, response) => {
     const lowerCaseCorreo = Email.toLowerCase();
     const lowercaseIdCredencial = Id_Credencial.toLowerCase();
 
+    // Check if user already exists
+    const existingUser = await userModel.findOne({ Id_Credencial: lowercaseIdCredencial });
+    if (existingUser) {
+        return response.status(400).json({ error: 'Ya existe un usuario con ese ID' });
+    }
+
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(Password, saltRounds);
 
