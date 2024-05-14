@@ -4,16 +4,30 @@ const router = require("express").Router();
 const userModel = require("../models/user");
 
 router.post("/login", async (request, response) => {
-    const { Id_Credencial, Password } = request.body;
+    let { Id_Credencial, Password, Source } = request.body;
 
-    const lowerCaseIdCredencial = Id_Credencial.toLowerCase();
+    Id_Credencial = Id_Credencial.toLowerCase();
+    Source = Source ? Source.toLowerCase() : "";
 
-    const user = await userModel.findOne({
-        Id_Credencial: lowerCaseIdCredencial,
-    });
+    let user;
+    if (Id_Credencial.includes("@")) {
+        user = await userModel.findOne({
+            Email: Id_Credencial,
+        });
+    } else {
+        user = await userModel.findOne({
+            Id_Credencial: Id_Credencial,
+        });
+    }
 
-    const passwordCorrect =
-        user === null ? false : await bcrypt.compare(Password, user.Hash);
+    let passwordCorrect = false;
+    if (Source === "lector") {
+        passwordCorrect = true;
+    } else {
+        Password = Password ? Password : "";
+        passwordCorrect =
+            user === null ? false : await bcrypt.compare(Password, user.Hash);
+    }
 
     if (!(user && passwordCorrect)) {
         return response.status(401).json({
