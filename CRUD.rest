@@ -21,9 +21,6 @@ Content-Type: application/json
 ### Obtiene todos los usuarios
 GET http://localhost:3001/api/user/
 
-### Obtiene un usuario por id
-GET http://localhost:3001/api/user/664256e02cbea434fb020316
-
 ### Editar un usuario por id
 PUT http://localhost:3001/api/user/664256e02cbea434fb020316
 Content-Type: application/json
@@ -38,3 +35,45 @@ Content-Type: application/json
 
 ### Eliminar un usuario por id
 DELETE http://localhost:3001/api/user/6642583bdb097da203e7ba81
+
+
+
+
+
+### Registrar un usuario
+POST https://autenticacion-global-dreamlab.azurewebsites.net/api/user/signup
+Content-Type: application/json
+
+{
+  "Nombre": "nombre",
+  "Email": "email",
+  "Id_Credencial": "credencial",
+  "Password": "123"
+}
+
+### Inicia sesion con un usuario
+POST https://autenticacion-global-dreamlab.azurewebsites.net/api/user/login
+Content-Type: application/json
+
+{
+  "Id_Credencial": "a01177767@tec.mx",
+  "Password": "123"
+}
+
+### Obtiene todos los usuarios
+GET https://autenticacion-global-dreamlab.azurewebsites.net/api/user/
+
+### Editar un usuario por id
+PUT https://autenticacion-global-dreamlab.azurewebsites.net/api/user/664256e02cbea434fb020316
+Content-Type: application/json
+
+{
+  "Nombre": "agua",
+  "Email": "email modificado",
+  "Id_Credencial": "credencial",
+  "id": "664256e02cbea434fb020316",
+  "Password": "eduardo"
+}
+
+### Eliminar un usuario por id
+DELETE https://autenticacion-global-dreamlab.azurewebsites.net/api/user/6642583bdb097da203e7ba81

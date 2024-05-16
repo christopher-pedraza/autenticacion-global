@@ -6,6 +6,12 @@ const userModel = require("../models/user");
 router.post("/login", async (request, response) => {
     let { Id_Credencial, Password, Source } = request.body;
 
+    if (!Id_Credencial) {
+        return response
+            .status(400)
+            .json({ error: "Id_Credencial is required" });
+    }
+
     Id_Credencial = Id_Credencial.toLowerCase();
     Source = Source ? Source.toLowerCase() : "";
 
@@ -32,6 +38,12 @@ router.post("/login", async (request, response) => {
     if (!(user && passwordCorrect)) {
         return response.status(401).json({
             error: "invalid username or password",
+        });
+    }
+
+    if (!user) {
+        return response.status(404).json({
+            error: "User not found",
         });
     }
 
@@ -84,15 +96,6 @@ router.post("/signup", async (request, response) => {
 router.get("/", async (request, response) => {
     const users = await userModel.find({});
     response.json(users);
-});
-
-router.get("/:id", async (request, response) => {
-    const user = await userModel.findById(request.params.id);
-    if (user) {
-        response.json(user);
-    } else {
-        response.status(404).end();
-    }
 });
 
 router.delete("/:id", async (request, response) => {
