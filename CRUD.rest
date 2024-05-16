@@ -10,11 +10,16 @@ Content-Type: application/json
 }
 
 ### Inicia sesion con un usuario
+# En Id_Credencial se puede poner el email o la matricula
+# Ademas, en caso de incluir el atributo Source (el cual es opcional), ya no es
+# necesario incluir el atributo Password, ya que se esta simulando que el acceso
+# es por medio de una credencial (para que funcione, el valor de Source debe ser
+# "lector")
 POST http://localhost:3001/api/user/login
 Content-Type: application/json
 
 {
-  "Id_Credencial": "a01177767@tec.mx",
+  "Id_Credencial": "credencial",
   "Source": "lector"
 }
 
@@ -22,7 +27,7 @@ Content-Type: application/json
 GET http://localhost:3001/api/user/
 
 ### Editar un usuario por id
-PUT http://localhost:3001/api/user/664256e02cbea434fb020316
+PUT http://localhost:3001/api/user/66458ca005cfe74d430f35cf
 Content-Type: application/json
 
 {
@@ -34,8 +39,15 @@ Content-Type: application/json
 }
 
 ### Eliminar un usuario por id
-DELETE http://localhost:3001/api/user/6642583bdb097da203e7ba81
+DELETE http://localhost:3001/api/user/66458ca005cfe74d430f35cf
 
+### Verificar que el token sea valido
+POST http://localhost:3001/api/user/verificarToken
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDU4Y2EwMDVjZmU3NGQ0MzBmMzVjZiIsIk5vbWJyZSI6Im5vbWJyZSIsIkVtYWlsIjoiZW1haWwiLCJJZF9DcmVkZW5jaWFsIjoiY3JlZGVuY2lhbCIsInBhc3N3b3JkSGFzaEhNQUMiOiJjNDZiNzEzZjM4YThiNDY2N2YzZjFkM2EzZTMxNDRiYzM3ZmQ4NDMzMjk1NmM1OGJhY2Q1OGY0Mjk5MTk5YjhhIiwiaWF0IjoxNzE1ODM0MDMyLCJleHAiOjE3MTU4MzQ2MzJ9.BZnExJSbrUOl0piaqGt3KVxHJTTPhvEVsonJDq7-8R0"
+}
 
 
 
@@ -52,6 +64,11 @@ Content-Type: application/json
 }
 
 ### Inicia sesion con un usuario
+# En Id_Credencial se puede poner el email o la matricula
+# Ademas, en caso de incluir el atributo Source (el cual es opcional), ya no es
+# necesario incluir el atributo Password, ya que se esta simulando que el acceso
+# es por medio de una credencial (para que funcione, el valor de Source debe ser
+# "lector")
 POST https://autenticacion-global-dreamlab.azurewebsites.net/api/user/login
 Content-Type: application/json
 
@@ -77,3 +94,11 @@ Content-Type: application/json
 
 ### Eliminar un usuario por id
 DELETE https://autenticacion-global-dreamlab.azurewebsites.net/api/user/6642583bdb097da203e7ba81
+
+### Verificar que el token sea valido
+POST https://autenticacion-global-dreamlab.azurewebsites.net/api/user/verificarToken
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDU4Y2EwMDVjZmU3NGQ0MzBmMzVjZiIsIk5vbWJyZSI6Im5vbWJyZSIsIkVtYWlsIjoiZW1haWwiLCJJZF9DcmVkZW5jaWFsIjoiY3JlZGVuY2lhbCIsInBhc3N3b3JkSGFzaEhNQUMiOiJjNDZiNzEzZjM4YThiNDY2N2YzZjFkM2EzZTMxNDRiYzM3ZmQ4NDMzMjk1NmM1OGJhY2Q1OGY0Mjk5MTk5YjhhIiwiaWF0IjoxNzE1ODM0MDMyLCJleHAiOjE3MTU4MzQ2MzJ9.BZnExJSbrUOl0piaqGt3KVxHJTTPhvEVsonJDq7-8R0"
+}
